@@ -1,0 +1,138 @@
+schema_version: 1.0.0-draft
+package_name: guideplane_design_system_contract
+status: draft
+imports:
+  - guideplane_design_tokens_v1
+purpose: |
+  Provide the formal design-system contract for Guideplane. This contract sits between
+  the state machine and concrete front-end implementation.
+global_rules:
+  - Navigation, policy, and fulfillment must remain visually separable.
+  - Every fulfillable action must expose an inspectable explanation path.
+  - Panels may collapse, but plane identity may not disappear.
+  - Dense information is allowed; hidden status is not.
+panel_types:
+  TopBar:
+    required_slots:
+      - environment_badge
+      - workspace_title
+      - mode_switcher
+      - policy_posture_badge
+  ContextRail:
+    required_slots:
+      - actor_summary
+      - operating_context_summary
+      - entitlement_summary
+      - preference_summary
+      - ledger_anchors
+  InquiryWorkspace:
+    required_slots:
+      - input_surface
+      - term_stack
+      - ambiguity_panel
+      - intent_stack
+  RouteBoard:
+    required_slots:
+      - capability_lane
+      - reference_lane
+      - domain_lane
+      - offer_lane
+      - comparison_drawer
+  PolicyRail:
+    required_slots:
+      - policy_basis_panel
+      - qualification_panel
+      - decision_trace
+      - obligations_panel
+  FulfillmentTray:
+    required_slots:
+      - selected_offer
+      - route_selector
+      - channel_selector
+      - artifact_preview
+      - action_footer
+  LedgerPane:
+    required_slots:
+      - recent_events
+      - outcome_signals
+      - recommendation_basis
+core_components:
+  ActorChip:
+    states: [default, focus, redacted, unavailable]
+  StatusBadge:
+    variants: [navigation, policy, fulfillment, warning, danger, neutral]
+    states: [default, active, muted, disabled]
+  IntentPill:
+    states: [candidate, selected, ambiguous, superseded]
+  OfferCard:
+    required_sections:
+      - title
+      - canonical_refs
+      - facet_summary
+      - qualification_hint
+      - explain_action
+    states: [candidate, selected, compared, constrained, blocked]
+  AccessDecisionCard:
+    required_sections:
+      - outcome
+      - grants
+      - denials
+      - obligations
+      - exceptions
+      - expiry
+      - dispatch_readiness
+    states: [pending, allow, allow_with_obligations, deny, escalate, expired]
+  DeliveryActionBar:
+    required_actions:
+      - fulfill
+      - escalate
+      - export
+      - copy_reference
+    states: [idle, armed, blocked, executing, completed, failed]
+  LedgerEventRow:
+    states: [default, linked, highlighted, error]
+state_semantics:
+  loading:
+    rule: Preserve panel shells and identity while replacing body content with skeletons.
+  empty:
+    rule: Explain why the surface is empty and what admissible next action exists.
+  warning:
+    rule: Show operator-visible caution without blocking navigation.
+  error:
+    rule: Preserve context and expose retry, fallback, and trace handles.
+keyboard_model:
+  focus_order:
+    - TopBar
+    - ContextRail
+    - InquiryWorkspace
+    - RouteBoard
+    - PolicyRail
+    - FulfillmentTray
+    - LedgerPane
+  required_shortcuts:
+    open_command_bar: "Cmd/Ctrl+K"
+    move_next_plane: "]"
+    move_previous_plane: "["
+    explain_selected: "E"
+    fulfill_selected: "Enter"
+    escalate_selected: "Shift+Enter"
+    open_ledger: "L"
+transition_rules:
+  - RouteBoard to PolicyRail transition must preserve selected offer and domain context.
+  - PolicyRail to FulfillmentTray transition is forbidden without an allow or conditional allow access decision.
+  - Any escalation transition must preserve the full decision trace.
+  - Entering error state must not clear the active inquiry or selected offer.
+telemetry:
+  required_events:
+    - workbench_opened
+    - inquiry_submitted
+    - intent_refined
+    - route_selected
+    - access_qualified
+    - fulfillment_attempted
+    - escalation_requested
+    - outcome_recorded
+acceptance_gates:
+  - Every fulfillable component must reveal the qualifying AccessDecisionCard within one operator action.
+  - No blocked action may appear visually identical to an enabled action.
+  - The operator must be able to recover context after denial, expiry, or escalation.
