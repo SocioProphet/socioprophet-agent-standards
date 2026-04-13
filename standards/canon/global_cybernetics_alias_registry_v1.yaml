@@ -1,0 +1,15 @@
+schema_version: 1.0.0-formal
+package_name: global_cybernetics_alias_registry
+status: formal
+purpose: Reserved alias and deferred-promotion registry for canonical names not yet promoted into the master canon.
+aliases:
+  - local_source: Guideplane
+    local_name: CapabilityOffer
+    reserved_canonical_name: ServiceOffer
+    status: alias_hold
+    reason: Broader offer semantics should be stabilized independently from routed fulfillment and delivered artifacts.
+  - local_source: Guideplane
+    local_name: FacetView
+    reserved_canonical_name: FacetProjection
+    status: alias_hold
+    reason: Projection/view semantics should remain tied to the shared property model until broader cross-surface reuse is proven.
