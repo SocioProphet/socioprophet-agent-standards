@@ -1,0 +1,169 @@
+schema_version: 1.0.0-draft
+package_name: guideplane_policy_decision_subtypes_formal
+status: draft
+supersedes:
+  - guideplane_policy_decision_hierarchy_v1
+purpose: |
+  Fully formal subtype package for canonical policy decisions used by Guideplane and
+  the broader governed cybernetics stack.
+supertype:
+  PolicyDecision:
+    description: Broad cross-platform policy decision record.
+    required_fields:
+      - policy_decision_id
+      - decision_type
+      - subject_ref
+      - target_ref
+      - policy_basis_refs
+      - decision_outcome
+      - rationale_ref
+      - effective_time
+      - expiry_time
+      - status
+    common_invariants:
+      - decision_type must match one declared subtype family
+      - decision_outcome must be valid for the declared subtype
+      - expiry_time may be null only when the decision family permits standing decisions
+subtypes:
+  AccessDecisionRecord:
+    extends: PolicyDecision
+    purpose: Qualify whether a requested action may proceed toward governed fulfillment.
+    allowed_outcomes:
+      - allow
+      - allow_with_obligations
+      - deny
+      - escalate
+      - expired
+    required_fields:
+      - access_decision_record_id
+      - actor_ref
+      - target_ref
+      - requested_action
+      - purpose_binding_ref
+      - delivery_channel_ref
+      - entitlement_set_ref
+      - applied_grant_refs
+      - applied_denial_refs
+      - applied_obligation_refs
+      - applied_exception_refs
+      - qualification_outcome
+      - dispatch_readiness
+    invariants:
+      - dispatch_readiness may be true only when qualification_outcome is allow or allow_with_obligations
+      - delivery_channel_ref is required for dispatch-ready outcomes
+  LearningDecisionRecord:
+    extends: PolicyDecision
+    purpose: Decide whether adaptive learning may use, retain, aggregate, or suppress a signal.
+    allowed_outcomes:
+      - include
+      - include_aggregated_only
+      - suppress
+      - quarantine
+      - review_required
+    required_fields:
+      - learning_decision_record_id
+      - signal_ref
+      - learning_constraint_ref
+      - aggregation_scope
+      - retention_window
+      - fairness_check_status
+    invariants:
+      - include_aggregated_only requires aggregation_scope
+      - quarantine and review_required require a rationale_ref
+  WorkflowDecisionRecord:
+    extends: PolicyDecision
+    purpose: Govern workflow branching, stage progression, pause, rollback, or handoff.
+    allowed_outcomes:
+      - advance
+      - hold
+      - reject
+      - rollback
+      - handoff
+    required_fields:
+      - workflow_decision_record_id
+      - workflow_ref
+      - stage_ref
+      - requested_transition
+      - branch_target_ref
+      - rollback_target_ref
+    invariants:
+      - rollback requires rollback_target_ref
+      - handoff requires branch_target_ref
+  PublicationDecisionRecord:
+    extends: PolicyDecision
+    purpose: Govern whether an artifact, claim, or view may be published, redacted, or withheld.
+    allowed_outcomes:
+      - publish
+      - publish_redacted
+      - withhold
+      - embargo
+      - review_required
+    required_fields:
+      - publication_decision_record_id
+      - artifact_ref
+      - intended_audience_ref
+      - redaction_rule_refs
+      - embargo_until
+    invariants:
+      - publish_redacted requires redaction_rule_refs
+      - embargo requires embargo_until
+  RestorationDecisionRecord:
+    extends: PolicyDecision
+    purpose: Govern whether state, artifact, or route restoration may occur.
+    allowed_outcomes:
+      - restore
+      - restore_partial
+      - do_not_restore
+      - simulate_only
+      - review_required
+    required_fields:
+      - restoration_decision_record_id
+      - restore_target_ref
+      - restore_source_ref
+      - restore_scope
+      - simulation_trace_ref
+    invariants:
+      - simulate_only requires simulation_trace_ref
+      - restore_partial requires restore_scope
+  AdjudicationDecisionRecord:
+    extends: PolicyDecision
+    purpose: Record formal dispute, challenge, override, or settlement outcomes.
+    allowed_outcomes:
+      - uphold
+      - overturn
+      - partially_overturn
+      - defer
+      - settlement
+    required_fields:
+      - adjudication_decision_record_id
+      - dispute_ref
+      - prior_decision_ref
+      - adjudicator_ref
+      - settlement_terms_ref
+    invariants:
+      - settlement requires settlement_terms_ref
+      - partially_overturn requires prior_decision_ref
+state_model:
+  states:
+    - drafted
+    - issued
+    - active
+    - expired
+    - superseded
+    - revoked
+  transitions:
+    - drafted -> issued
+    - issued -> active
+    - active -> expired
+    - active -> superseded
+    - active -> revoked
+    - issued -> revoked
+normalization_effects:
+  promote_global:
+    - PolicyDecision
+    - AccessDecisionRecord
+    - LearningDecisionRecord
+    - WorkflowDecisionRecord
+    - PublicationDecisionRecord
+    - RestorationDecisionRecord
+    - AdjudicationDecisionRecord
