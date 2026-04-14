@@ -1,0 +1,15 @@
+profile_manifest_id: profile_manifest_0001
+version: 0.0.1
+profiles:
+  - evidence_profile_0001
+  - control_gating_graduation_profile_0001
+  - orchestration_ray_profile_0001
+artifact_types:
+  - repro_ledger_entry
+  - causal_attribution
+  - methodology_snapshot
+  - metric_crosswalk
+required_examples:
+  - examples/agent_spec_0001.json
+  - examples/ray_recipe_lifecycle_0001.json
+notes: thin manifest linking the first evidence, control, gating, graduation, and orchestration-ray profiles.
