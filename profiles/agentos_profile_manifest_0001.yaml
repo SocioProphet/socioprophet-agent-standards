@@ -1,0 +1,32 @@
+version: '1.0'
+agentos_spec:
+  description: 'Harmonized profile for AgentOS using Control, Gating, Graduation, and Orchestration layers'
+  control_families:
+    - 'value_based'
+    - 'policy_based'
+    - 'actor_critic'
+    - 'imitation_bootstrapped'
+    - 'goal_conditioned'
+    - 'model_based_planner'
+    - 'constrained_safe'
+    - 'hierarchical_options'
+    - 'formal_policy_constrained'
+  gating_classes:
+    - 'hard_gate'
+    - 'soft_advisory'
+    - 'graduation_gate'
+  graduation_lanes:
+    - 'capability'
+    - 'safety_policy'
+    - 'reliability_recovery'
+    - 'observability_auditability'
+    - 'provenance_reproducibility'
+    - 'efficiency_budget'
+    - 'human_oversight_acceptability'
+  orchestration_surfaces:
+    - 'identity_surface'
+    - 'context_memory_surface'
+    - 'skill_catalog_surface'
+    - 'route_selection_surface'
+    - 'recipe_execution_surface'
+    - 'evidence_surface'
