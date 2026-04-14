@@ -1,0 +1,253 @@
+schema_version: 2.0.0-draft
+package_name: guideplane_shared_canonical
+preferred_system_name: Guideplane Shared Canon
+status: draft
+supersedes:
+  - guideplane_shared_canonical_v1
+imports:
+  - guideplane_shared_property_vocabulary_v1
+  - guideplane_entitlement_vocabulary_v1
+  - guideplane_policy_decision_subtypes_formal_v1
+package_intent: |
+  Hold the stable nouns and contracts reused across Guideplane and the broader governed
+  cybernetics stack. Shared objects must remain meaningful outside a single interaction
+  session and must be independently governable.
+governance_rules:
+  - Shared objects describe durable reality, policy, reference, offer, knowledge, execution, or artifact state.
+  - Shared objects must have stable IDs, versioning posture, lifecycle state, and ownership.
+  - Presentation-only helpers and session-bound routing constructs must not enter this package.
+  - Subtype hierarchies must remain explicit; do not overload one broad type with hidden special cases.
+conformance:
+  required_for_implementation:
+    - Stable object IDs
+    - Version field or version posture
+    - Status field
+    - Ownership or stewardship reference
+    - Time semantics where applicable
+    - Policy or sensitivity references where applicable
+  forbidden:
+    - UI-only labels as canonical fields
+    - Implicit inherited fields not declared by package imports
+object_groups:
+  identity_and_context:
+    - Actor
+    - OperatingContext
+    - PreferenceProfile
+  capability_and_reference:
+    - CapabilityNode
+    - ReferencePattern
+    - CapabilityOffer
+    - FacetView
+  knowledge_and_source:
+    - KnowledgeDomain
+    - SourceAsset
+  execution_and_runtime:
+    - ExecutionComponent
+    - RuntimeSubstrate
+    - ServiceRoute
+    - DeliveryChannel
+    - DeliveryArtifact
+  policy_and_governance:
+    - EntitlementSet
+    - AccessConstraint
+    - PolicyDecision
+    - AccessDecisionRecord
+    - LearningConstraint
+objects:
+  Actor:
+    description: Durable principal acting within governed surfaces.
+    required_fields:
+      - actor_id
+      - display_name
+      - auth_context
+      - operating_context_ref
+      - entitlement_set_ref
+      - status
+    invariants:
+      - actor_id must be stable across sessions
+      - auth_context must not be blank for active actors
+  OperatingContext:
+    description: Institutional and jurisdictional scope under which an actor operates.
+    required_fields:
+      - operating_context_id
+      - org_unit
+      - role
+      - jurisdiction
+      - effective_time
+      - status
+    invariants:
+      - jurisdiction must be present when policy varies by territory
+  PreferenceProfile:
+    description: Durable preference profile built on the shared property vocabulary.
+    required_fields:
+      - preference_profile_id
+      - actor_ref
+      - property_value_refs
+      - effective_time
+      - status
+    invariants:
+      - property_value_refs must reference PropertyValue objects only
+  CapabilityNode:
+    description: Reusable business or operating capability used for routing and governance.
+    required_fields:
+      - capability_node_id
+      - canonical_name
+      - description
+      - parent_refs
+      - status
+  ReferencePattern:
+    description: Reusable reference or normative pattern governing capability realization.
+    required_fields:
+      - reference_pattern_id
+      - canonical_name
+      - pattern_type
+      - capability_refs
+      - version
+      - status
+  CapabilityOffer:
+    description: Canonical offer surfaced to an operator for comparison and possible fulfillment.
+    required_fields:
+      - capability_offer_id
+      - canonical_name
+      - capability_refs
+      - reference_pattern_refs
+      - property_value_refs
+      - service_route_refs
+      - status
+    invariants:
+      - property_value_refs must reference PropertyValue objects
+      - service_route_refs must reference at least one ServiceRoute for fulfillable offers
+  FacetView:
+    description: Projected facet surface over shared properties for filtering and comparison.
+    required_fields:
+      - facet_view_id
+      - source_property_group_ref
+      - projection_rule
+      - display_profile_ref
+      - status
+  KnowledgeDomain:
+    description: Stable domain boundary over governed knowledge, data, or content assets.
+    required_fields:
+      - knowledge_domain_id
+      - canonical_name
+      - source_asset_refs
+      - sensitivity_class
+      - status
+  SourceAsset:
+    description: Governed source of truth or source-bearing content asset.
+    required_fields:
+      - source_asset_id
+      - canonical_name
+      - asset_type
+      - domain_refs
+      - sensitivity_class
+      - status
+  ExecutionComponent:
+    description: Deployable or callable execution component participating in routing or fulfillment.
+    required_fields:
+      - execution_component_id
+      - canonical_name
+      - component_type
+      - runtime_substrate_ref
+      - status
+  RuntimeSubstrate:
+    description: Managed runtime environment hosting execution components or routes.
+    required_fields:
+      - runtime_substrate_id
+      - canonical_name
+      - substrate_type
+      - jurisdiction
+      - status
+  ServiceRoute:
+    description: Governed route that can enact a capability offer through a component or service.
+    required_fields:
+      - service_route_id
+      - canonical_name
+      - execution_component_refs
+      - delivery_channel_refs
+      - route_status
+      - status
+  DeliveryChannel:
+    description: Admissible channel for governed delivery or escalation.
+    required_fields:
+      - delivery_channel_id
+      - canonical_name
+      - channel_type
+      - policy_basis_refs
+      - status
+  DeliveryArtifact:
+    description: Deliverable artifact produced through governed fulfillment.
+    required_fields:
+      - delivery_artifact_id
+      - canonical_name
+      - artifact_type
+      - source_offer_ref
+      - delivery_channel_ref
+      - status
+  AccessConstraint:
+    description: Per-object or per-action qualification rule used by access decisions.
+    required_fields:
+      - access_constraint_id
+      - scope_ref
+      - constrained_action
+      - qualification_rule
+      - status
+  EntitlementSet:
+    description: Durable collection of grants, denials, obligations, and exceptions for a subject.
+    required_fields:
+      - entitlement_set_id
+      - subject_ref
+      - grant_refs
+      - denial_refs
+      - obligation_refs
+      - exception_refs
+      - effective_time
+      - status
+  PolicyDecision:
+    description: Broad cross-platform policy decision supertype imported from the policy hierarchy.
+    required_fields:
+      - policy_decision_id
+      - decision_type
+      - subject_ref
+      - target_ref
+      - decision_outcome
+      - effective_time
+      - status
+  AccessDecisionRecord:
+    description: Specialized canonical access qualification record imported from the policy hierarchy.
+    required_fields:
+      - access_decision_record_id
+      - policy_decision_ref
+      - actor_ref
+      - target_ref
+      - requested_action
+      - entitlement_set_ref
+      - qualification_outcome
+      - dispatch_readiness
+      - effective_time
+      - status
+  LearningConstraint:
+    description: Governs what adaptive learning signals may be used, retained, or aggregated.
+    required_fields:
+      - learning_constraint_id
+      - allowed_signal_types
+      - forbidden_signal_types
+      - aggregation_rule
+      - retention_rule
+      - status
+relations:
+  - Actor HAS OperatingContext
+  - Actor HAS PreferenceProfile
+  - Actor HAS EntitlementSet
+  - CapabilityNode GOVERNED_BY ReferencePattern
+  - CapabilityOffer REALIZES CapabilityNode
+  - CapabilityOffer DESCRIBED_BY PropertyValue
+  - CapabilityOffer FILTERED_BY FacetView
+  - KnowledgeDomain CONTAINS SourceAsset
+  - ServiceRoute EXECUTES_VIA ExecutionComponent
+  - ExecutionComponent RUNS_ON RuntimeSubstrate
+  - ServiceRoute DELIVERS_VIA DeliveryChannel
+  - CapabilityOffer FULFILLED_BY ServiceRoute
+  - DeliveryArtifact EMITTED_VIA DeliveryChannel
+  - AccessDecisionRecord EVALUATES AccessConstraint
+  - AccessDecisionRecord DERIVES_FROM EntitlementSet

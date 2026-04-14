@@ -1,0 +1,183 @@
+schema_version: 2.0.0-draft
+package_name: guideplane_local_operator_fabric
+preferred_system_name: Guideplane Operator Fabric
+status: draft
+supersedes:
+  - guideplane_local_operator_fabric_v1
+imports:
+  - guideplane_shared_canonical_v2
+package_intent: |
+  Hold session-scoped routing, comparison, explanation, adaptive ranking, and governed
+  fulfillment orchestration for the Guideplane workbench. These objects are replaceable
+  if the workbench changes.
+local_rules:
+  - Interaction-scoped objects stay local
+  - Ranking and recommendation constructs stay local unless promoted into a cross-surface service
+  - Outcome actions stay local unless promoted into a common workflow canon
+  - Local objects may reference shared canon but may not redefine it
+depends_on_shared_objects:
+  - Actor
+  - OperatingContext
+  - PreferenceProfile
+  - CapabilityNode
+  - ReferencePattern
+  - CapabilityOffer
+  - FacetView
+  - KnowledgeDomain
+  - SourceAsset
+  - ServiceRoute
+  - DeliveryChannel
+  - DeliveryArtifact
+  - EntitlementSet
+  - AccessConstraint
+  - PolicyDecision
+  - AccessDecisionRecord
+  - LearningConstraint
+layers:
+  - name: Context and Session
+    purpose: Initialize the active operator session with context and memory.
+  - name: Meaning and Routing
+    purpose: Interpret inquiry and narrow admissible capability and domain paths.
+  - name: Offer Navigation and Comparison
+    purpose: Rank, compare, and explain offers against context and constraints.
+  - name: Fulfillment Orchestration
+    purpose: Turn a qualified offer into a delivery action or escalation.
+  - name: Adaptive Intelligence
+    purpose: Improve ordering and suggestions without overriding policy.
+objects:
+  ContextCard:
+    description: Operator-facing rendering of active actor, context, and posture.
+    required_fields:
+      - context_card_id
+      - actor_ref
+      - operating_context_ref
+      - preference_profile_ref
+      - entitlement_set_ref
+      - status
+  InteractionSession:
+    description: Active operator session bound to one or more inquiries and routing states.
+    required_fields:
+      - interaction_session_id
+      - actor_ref
+      - session_mode
+      - active_state
+      - created_time
+      - status
+  InteractionLedger:
+    description: Session-local or linked historical record of interactions relevant to the current session.
+    required_fields:
+      - interaction_ledger_id
+      - actor_ref
+      - session_refs
+      - memory_anchor_refs
+      - status
+  IntentFrame:
+    description: Structured current-intent frame including ambiguity and decomposition posture.
+    required_fields:
+      - intent_frame_id
+      - interaction_session_ref
+      - canonical_label
+      - confidence
+      - ambiguity_level
+      - status
+  DeliveryRequest:
+    description: Local request to fulfill an offer through a route, channel, or artifact.
+    required_fields:
+      - delivery_request_id
+      - interaction_session_ref
+      - requested_offer_ref
+      - requested_action
+      - preferred_channel_ref
+      - status
+  SemanticFrame:
+    description: Session-scoped semantic and taxonomy interpretation for narrowing.
+    required_fields:
+      - semantic_frame_id
+      - interaction_session_ref
+      - active_terms
+      - candidate_capability_refs
+      - candidate_domain_refs
+      - status
+  DomainBoard:
+    description: Local board summarizing viable domains, sources, routes, and constraints.
+    required_fields:
+      - domain_board_id
+      - interaction_session_ref
+      - knowledge_domain_refs
+      - source_asset_refs
+      - route_refs
+      - status
+  OrchestrationController:
+    description: Local orchestration state holder for navigation, qualification, and fulfillment transitions.
+    required_fields:
+      - orchestration_controller_id
+      - interaction_session_ref
+      - current_state
+      - next_allowed_actions
+      - status
+  OutcomeAction:
+    description: Local workbench action resulting from a qualified decision or escalation path.
+    required_fields:
+      - outcome_action_id
+      - interaction_session_ref
+      - action_type
+      - target_ref
+      - action_status
+      - status
+  InteractionEvent:
+    description: Fine-grained operator interaction event used for telemetry and adaptive learning.
+    required_fields:
+      - interaction_event_id
+      - interaction_session_ref
+      - event_type
+      - target_ref
+      - event_time
+      - status
+  BehaviorProfile:
+    description: Local adaptive summary of interaction tendencies for one actor or cohort.
+    required_fields:
+      - behavior_profile_id
+      - actor_ref
+      - signal_refs
+      - update_time
+      - status
+  CohortPattern:
+    description: Local cohort pattern for recommendation and comparative ranking.
+    required_fields:
+      - cohort_pattern_id
+      - cohort_rule
+      - signal_window
+      - status
+  RecommendationSignal:
+    description: Computed local signal used in ordering, comparison, or suggestion ranking.
+    required_fields:
+      - recommendation_signal_id
+      - interaction_session_ref
+      - signal_basis
+      - score
+      - status
+  OutcomeSignal:
+    description: Local success or failure signal emitted after fulfillment, denial, or escalation.
+    required_fields:
+      - outcome_signal_id
+      - interaction_session_ref
+      - outcome_type
+      - score
+      - status
+relations:
+  - ContextCard RENDERS Actor
+  - ContextCard RENDERS OperatingContext
+  - ContextCard RENDERS PreferenceProfile
+  - ContextCard RENDERS EntitlementSet
+  - InteractionSession READS InteractionLedger
+  - InteractionSession HOLDS IntentFrame
+  - InteractionSession HOLDS SemanticFrame
+  - SemanticFrame NARROWS CapabilityOffer
+  - SemanticFrame NARROWS KnowledgeDomain
+  - DomainBoard SUMMARIZES KnowledgeDomain
+  - DomainBoard SUMMARIZES ServiceRoute
+  - DeliveryRequest TARGETS CapabilityOffer
+  - DeliveryRequest PREFERS DeliveryChannel
+  - OrchestrationController ADVANCES OutcomeAction
+  - RecommendationSignal INFORMS CapabilityOffer
+  - OutcomeSignal FEEDS BehaviorProfile
