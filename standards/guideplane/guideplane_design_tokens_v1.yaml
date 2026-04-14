@@ -1,0 +1,47 @@
+schema_version: 1.0.0-draft
+package_name: guideplane_design_tokens
+status: draft
+purpose: Minimal formal token set for Guideplane.
+modes:
+  density:
+    - comfortable
+    - compact
+    - forensic
+  theme:
+    - dark
+    - light
+spacing_scale:
+  0: 0
+  1: 4
+  2: 8
+  3: 12
+  4: 16
+  5: 24
+  6: 32
+  7: 40
+  8: 48
+  9: 64
+radius_scale:
+  sm: 6
+  md: 10
+  lg: 14
+  xl: 18
+  xxl: 24
+typography:
+  families:
+    ui: Inter, system-ui, sans-serif
+    mono: JetBrains Mono, ui-monospace, monospace
+  sizes:
+    sm: 13
+    md: 14
+    lg: 16
+    xl: 18
+    xxl: 22
+motion:
+  durations_ms:
+    fast: 120
+    normal: 180
+    slow: 320
+focus_tokens:
+  ring_width: 2
+  ring_offset: 2
