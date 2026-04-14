@@ -1,0 +1,1 @@
+{"type":"object","properties":{"adapter_ref":{"type":"string"},"message_type":{"type":"string"},"message_payload":{"type":"object"},"status_code":{"type":"integer"},"error_code":{"type":"string"}}}
