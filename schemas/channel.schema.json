@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://socioprophet.dev/schemas/channel.schema.json",
+  "title": "ControlPlaneChannel",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "channel",
+    "artifact_set",
+    "source_rev",
+    "promoted_at",
+    "rollback_to"
+  ],
+  "properties": {
+    "channel": {
+      "type": "string",
+      "enum": ["dev", "candidate", "stable"]
+    },
+    "artifact_set": {
+      "type": "string",
+      "description": "Content-addressed identifier for the promoted artifact set."
+    },
+    "source_rev": {
+      "type": "string",
+      "description": "Source revision used to derive the artifact set."
+    },
+    "flake_lock": {
+      "type": "string",
+      "description": "Optional lock hash for Nix/flake-realized builds."
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Capability name to version map carried with this promotion."
+    },
+    "eval_bundle": {
+      "type": "string",
+      "description": "Identifier for the evaluation report or score bundle used for this promotion."
+    },
+    "data_snapshots": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Named snapshot references used during evaluation or rollout."
+    },
+    "promoted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rollback_to": {
+      "type": "string",
+      "description": "Reference to the immediately previous accepted artifact set or channel point."
+    },
+    "approved_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Human or service identities that approved this advancement."
+    }
+  }
+}
