@@ -1,0 +1,8 @@
+profile_manifest_id: liberty_stack_profile_manifest_0001
+version: 0.0.1
+profiles:
+  - LIBERTY_STACK_PROFILE_0001
+required_schemas:
+  - schemas/liberty-stack/sovereign-context-record.schema.json
+  - schemas/liberty-stack/liberty-stack-manifest.schema.json
+notes: thin manifest linking the first Liberty Stack normative profile and machine contracts.
