@@ -1,0 +1,31 @@
+{
+  "agent_ref": "agent://socioprophet/example/liberty-governed-operator",
+  "profiles": [
+    "EVIDENCE_PROFILE_0001",
+    "CONTROL_PROFILE_0001",
+    "GATING_PROFILE_0001",
+    "GRADUATION_PROFILE_0001",
+    "ORCHESTRATION_PROFILE_0001",
+    "M2_ADAPTER_IPC_PROFILE_0001",
+    "LIBERTY_STACK_PROFILE_0001"
+  ],
+  "control": {
+    "control_family": ["policy_based", "actor_critic", "constrained_safe"],
+    "proposal_mode": "hybrid_llm_plus_symbolic",
+    "selection_mode": "gated_ranked_selection"
+  },
+  "gating": {
+    "gate_classes": ["hard_gate", "graduation_gate"],
+    "action_profiles": {
+      "tool_write": ["authorization_gate", "scope_gate", "policy_gate", "risk_gate", "evidence_gate", "approval_gate", "rollback_gate"]
+    }
+  },
+  "graduation": {
+    "current_stage": "L3_assist_mode"
+  },
+  "orchestration": {
+    "route_selection_surface": ["semantic_route", "retrieval_route", "execution_route"]
+  },
+  "adapter_contracts": ["M2_ADAPTER_IPC_PROFILE_0001"],
+  "risk_posture": "side_effecting_bounded"
+}

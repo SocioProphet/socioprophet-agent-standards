@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/liberty-stack/decommission-gate.schema.json",
+  "title": "DecommissionGate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["gate_id", "subject_ref", "status", "required_conditions"],
+  "properties": {
+    "gate_id": {"type": "string"},
+    "subject_ref": {"type": "string"},
+    "status": {"enum": ["pending", "approved", "blocked", "completed"]},
+    "required_conditions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "approval_ref": {"type": ["string", "null"]},
+    "notes": {"type": ["string", "null"]}
+  }
+}

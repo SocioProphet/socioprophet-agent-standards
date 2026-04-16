@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/m2/adapter-ipc-error.schema.json",
+  "title": "M2AdapterIPCError",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error_code", "message"],
+  "properties": {
+    "error_code": {
+      "enum": [
+        "E_PROTOCOL_INCOMPATIBLE",
+        "E_CAPABILITY_MISSING",
+        "E_LOCK_MISSING",
+        "E_LOCK_INVALID",
+        "E_LOCK_HASH_FAILED",
+        "E_TASK_FAILED",
+        "E_PATH_ESCAPE",
+        "E_WRITE_DENIED",
+        "E_INTERNAL"
+      ]
+    },
+    "message": {"type": "string"},
+    "details": {"type": ["object", "null"], "additionalProperties": true},
+    "retryable": {"type": ["boolean", "null"]}
+  }
+}

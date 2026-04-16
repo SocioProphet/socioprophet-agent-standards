@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/liberty-stack/sovereign-context-record.schema.json",
+  "title": "SovereignContextRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_id", "plane", "truth_class", "source", "validity", "surfaces"],
+  "properties": {
+    "record_id": {"type": "string"},
+    "plane": {"enum": ["RAW", "EVENT", "ENTITY", "DERIVED", "GLOBAL"]},
+    "truth_class": {"enum": ["OBSERVED", "ASSERTED", "INFERRED", "REPUTED"]},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_type"],
+      "properties": {
+        "source_type": {"enum": ["EVENT", "ENTITY_CONTEXT", "DERIVED_CONTEXT", "GLOBAL_CONTEXT", "ADAPTER"]},
+        "vendor_name": {"type": ["string", "null"]},
+        "product_name": {"type": ["string", "null"]},
+        "feed_family": {"type": ["string", "null"]},
+        "namespace": {"type": ["string", "null"]}
+      }
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "observed_at": {"type": ["string", "null"], "format": "date-time"},
+        "start": {"type": ["string", "null"], "format": "date-time"},
+        "end": {"type": ["string", "null"], "format": "date-time"},
+        "timeless": {"type": "boolean"}
+      }
+    },
+    "merge": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "strategy": {"enum": ["APPEND", "MERGED", "CONDITIONAL_FALLBACK", "FIRST_MATCH", "OVERWRITE", "PARALLEL"]},
+        "overwrite_allowed": {"type": "boolean"}
+      }
+    },
+    "surfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["search", "rules", "dashboards", "export"],
+      "properties": {
+        "search": {"type": "boolean"},
+        "rules": {"type": "boolean"},
+        "dashboards": {"type": "boolean"},
+        "export": {"type": "boolean"}
+      }
+    },
+    "payload": {"type": ["object", "null"], "additionalProperties": true}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "op": "task_run",
+  "task_ref": "task://workspace/example/backup-home",
+  "arguments": {
+    "target": "home",
+    "mode": "incremental"
+  },
+  "environment_ref": "env://workspace/example/dev-shell",
+  "result": "succeeded",
+  "receipt_ref": "receipt://m2/example/task-run-0001",
+  "error": null
+}

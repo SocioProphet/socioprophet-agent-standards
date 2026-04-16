@@ -1,0 +1,22 @@
+{
+  "manifest_id": "manifest://liberty-stack/example/0001",
+  "owner_ref": "actor://operator/example",
+  "datasets": [
+    {
+      "dataset_id": "dataset://google/drive/documents",
+      "provider": "google",
+      "service": "drive",
+      "estimated_size": "250GB",
+      "export_method": "takeout_plus_api",
+      "target_format": "portable_document_bundle",
+      "destination_system": "garage+sftpgo",
+      "verification_method": "count_hash_metadata_review",
+      "rollback_owner": "actor://operator/example",
+      "closure_preconditions": [
+        "verified_import_complete",
+        "replay_window_closed",
+        "approval_recorded"
+      ]
+    }
+  ]
+}

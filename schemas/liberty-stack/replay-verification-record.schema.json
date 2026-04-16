@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/liberty-stack/replay-verification-record.schema.json",
+  "title": "ReplayVerificationRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_id", "subject_ref", "pass_status"],
+  "properties": {
+    "record_id": {"type": "string"},
+    "subject_ref": {"type": "string"},
+    "pass_status": {"enum": ["pass", "warn", "fail"]},
+    "first_pass": {"type": ["boolean", "null"]},
+    "replay_window_ref": {"type": ["string", "null"]},
+    "evidence_bundle_ref": {"type": ["string", "null"]},
+    "notes": {"type": ["string", "null"]}
+  }
+}

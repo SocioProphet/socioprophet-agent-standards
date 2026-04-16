@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/liberty-stack/cutover-decision-record.schema.json",
+  "title": "CutoverDecisionRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision_id", "subject_ref", "decision_outcome"],
+  "properties": {
+    "decision_id": {"type": "string"},
+    "subject_ref": {"type": "string"},
+    "decision_outcome": {"enum": ["approved", "denied", "deferred"]},
+    "verification_record_ref": {"type": ["string", "null"]},
+    "evidence_bundle_ref": {"type": ["string", "null"]},
+    "approval_ref": {"type": ["string", "null"]},
+    "notes": {"type": ["string", "null"]}
+  }
+}
