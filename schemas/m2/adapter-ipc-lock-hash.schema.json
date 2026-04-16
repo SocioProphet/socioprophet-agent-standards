@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/m2/adapter-ipc-lock-hash.schema.json",
+  "title": "M2AdapterIPCLockHash",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["op", "lock_ref", "hash_algorithm"],
+  "properties": {
+    "op": {"const": "lock_hash"},
+    "lock_ref": {"type": "string"},
+    "hash_algorithm": {"type": "string"},
+    "hash_value": {"type": ["string", "null"]},
+    "result": {"enum": ["ok", "failed"]}
+  }
+}
