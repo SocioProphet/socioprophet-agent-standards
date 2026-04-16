@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/liberty-stack/evidence-bundle.schema.json",
+  "title": "LibertyStackEvidenceBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["bundle_id", "subject_ref", "artifacts"],
+  "properties": {
+    "bundle_id": {"type": "string"},
+    "subject_ref": {"type": "string"},
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_ref", "artifact_type"],
+        "properties": {
+          "artifact_ref": {"type": "string"},
+          "artifact_type": {"type": "string"},
+          "hash": {"type": ["string", "null"]},
+          "notes": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "approval_ref": {"type": ["string", "null"]},
+    "created_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}
