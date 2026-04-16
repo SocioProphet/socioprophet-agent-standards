@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/liberty-stack/provider-adapter-contract.schema.json",
+  "title": "ProviderAdapterContract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["adapter_id", "provider_family", "capabilities"],
+  "properties": {
+    "adapter_id": {"type": "string"},
+    "provider_family": {"type": "string"},
+    "supported_surfaces": {
+      "type": "array",
+      "items": {"enum": ["inventory", "export", "import", "verification", "replay", "cutover", "decommission"]}
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "auth_methods": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "notes": {"type": ["string", "null"]}
+  }
+}
