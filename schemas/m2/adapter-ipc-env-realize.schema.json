@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/m2/adapter-ipc-env-realize.schema.json",
+  "title": "M2AdapterIPCEnvRealize",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["op", "environment_ref", "result"],
+  "properties": {
+    "op": {"const": "env_realize"},
+    "environment_ref": {"type": "string"},
+    "lock_ref": {"type": ["string", "null"]},
+    "workspace_ref": {"type": ["string", "null"]},
+    "result": {"enum": ["realized", "failed"]},
+    "artifacts": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}
