@@ -1,0 +1,9 @@
+{
+  "record_id": "record://liberty-stack/example/replay-0001",
+  "subject_ref": "dataset://google/drive/documents",
+  "pass_status": "pass",
+  "first_pass": false,
+  "replay_window_ref": "window://migration/default/replay-01",
+  "evidence_bundle_ref": "bundle://liberty-stack/example/evidence-0001",
+  "notes": "Replay succeeded after late-arriving context and final verification closed cleanly."
+}
