@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/m2/adapter-ipc-info.schema.json",
+  "title": "M2AdapterIPCInfo",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["op", "adapter_ref", "protocol_version", "capabilities"],
+  "properties": {
+    "op": {"const": "info"},
+    "adapter_ref": {"type": "string"},
+    "protocol_version": {"type": "string"},
+    "capabilities": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "notes": {"type": ["string", "null"]}
+  }
+}
