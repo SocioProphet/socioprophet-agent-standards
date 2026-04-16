@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/m2/adapter-ipc-lock-validate.schema.json",
+  "title": "M2AdapterIPCLockValidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["op", "lock_ref"],
+  "properties": {
+    "op": {"const": "lock_validate"},
+    "lock_ref": {"type": "string"},
+    "workspace_ref": {"type": ["string", "null"]},
+    "result": {"enum": ["valid", "invalid", "missing"]},
+    "details": {"type": ["object", "null"], "additionalProperties": true}
+  }
+}
