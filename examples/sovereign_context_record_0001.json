@@ -1,0 +1,33 @@
+{
+  "record_id": "record://liberty-stack/example/ctx-0001",
+  "plane": "ENTITY",
+  "truth_class": "ASSERTED",
+  "source": {
+    "source_type": "ADAPTER",
+    "vendor_name": "google",
+    "product_name": "contacts",
+    "feed_family": "identity_export",
+    "namespace": "migration/default"
+  },
+  "validity": {
+    "observed_at": "2026-04-16T17:00:00Z",
+    "start": "2026-04-16T17:00:00Z",
+    "end": null,
+    "timeless": false
+  },
+  "merge": {
+    "strategy": "MERGED",
+    "overwrite_allowed": false
+  },
+  "surfaces": {
+    "search": true,
+    "rules": true,
+    "dashboards": true,
+    "export": true
+  },
+  "payload": {
+    "entity_type": "contact",
+    "display_name": "Example Operator",
+    "aliases": ["operator_primary"]
+  }
+}
