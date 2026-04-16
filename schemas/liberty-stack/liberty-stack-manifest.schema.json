@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/liberty-stack/liberty-stack-manifest.schema.json",
+  "title": "LibertyStackManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["manifest_id", "owner_ref", "datasets"],
+  "properties": {
+    "manifest_id": {"type": "string"},
+    "owner_ref": {"type": "string"},
+    "datasets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["dataset_id", "provider", "service", "target_format", "verification_method"],
+        "properties": {
+          "dataset_id": {"type": "string"},
+          "provider": {"type": "string"},
+          "service": {"type": "string"},
+          "estimated_size": {"type": ["string", "null"]},
+          "export_method": {"type": ["string", "null"]},
+          "target_format": {"type": "string"},
+          "destination_system": {"type": ["string", "null"]},
+          "verification_method": {"type": "string"},
+          "rollback_owner": {"type": ["string", "null"]},
+          "closure_preconditions": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}
