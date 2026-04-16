@@ -6,6 +6,7 @@ This file catalogs the standards currently landed or proposed under `docs/standa
 
 - `authentication/` — identity proof, sessioning, federation, recovery, and machine identity
 - `conformance/` — profile-layer conformance criteria and release posture
+- `networking/` — mesh identity advertisement, path-template vocabulary, and network-facing capability contracts
 
 ## Authentication standards
 
@@ -22,6 +23,11 @@ This file catalogs the standards currently landed or proposed under `docs/standa
 
 - `conformance/CONFORMANCE-CRITERIA-0001.md`
   - bootstrap conformance ladder for downstream compatibility and governed execution claims
+
+## Networking standards
+
+- `networking/001-mesh-capability-manifest-standard.md`
+  - canonical mesh node capability-manifest shape for roles, transports, path templates, and signed constraints
 
 ## Notes
 
