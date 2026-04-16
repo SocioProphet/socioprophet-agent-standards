@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/m2/adapter-ipc-deps-inventory.schema.json",
+  "title": "M2AdapterIPCDepsInventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["op", "subject_ref", "dependencies"],
+  "properties": {
+    "op": {"const": "deps_inventory"},
+    "subject_ref": {"type": "string"},
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "version": {"type": ["string", "null"]},
+          "source": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}
