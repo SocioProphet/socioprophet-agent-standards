@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/liberty-stack/verification-record.schema.json",
+  "title": "VerificationRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_id", "subject_ref", "verification_type", "pass_status"],
+  "properties": {
+    "record_id": {"type": "string"},
+    "subject_ref": {"type": "string"},
+    "verification_type": {"enum": ["integrity", "count", "metadata", "restore", "auth", "crosscheck"]},
+    "pass_status": {"enum": ["pass", "warn", "fail"]},
+    "evidence_bundle_ref": {"type": ["string", "null"]},
+    "operator_ref": {"type": ["string", "null"]},
+    "notes": {"type": ["string", "null"]}
+  }
+}
