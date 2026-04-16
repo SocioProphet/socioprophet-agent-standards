@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema://agent-standards/m2/adapter-ipc-task-run.schema.json",
+  "title": "M2AdapterIPCTaskRun",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["op", "task_ref", "result"],
+  "properties": {
+    "op": {"const": "task_run"},
+    "task_ref": {"type": "string"},
+    "arguments": {"type": ["object", "null"], "additionalProperties": true},
+    "environment_ref": {"type": ["string", "null"]},
+    "result": {"enum": ["succeeded", "failed", "blocked"]},
+    "receipt_ref": {"type": ["string", "null"]},
+    "error": {"$ref": "schema://agent-standards/m2/adapter-ipc-error.schema.json"}
+  }
+}
