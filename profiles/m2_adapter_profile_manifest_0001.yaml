@@ -1,0 +1,8 @@
+profile_manifest_id: m2_adapter_profile_manifest_0001
+version: 0.0.1
+profiles:
+  - M2_ADAPTER_IPC_PROFILE_0001
+required_schemas:
+  - schemas/m2/adapter-ipc-hello.schema.json
+  - schemas/m2/adapter-ipc-error.schema.json
+notes: thin manifest linking the first M2 adapter IPC normative profile and machine contracts.
