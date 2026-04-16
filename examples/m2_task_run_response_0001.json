@@ -1,0 +1,17 @@
+{
+  "op": "task_run",
+  "task_ref": "task://workspace/example/backup-home",
+  "arguments": null,
+  "environment_ref": "env://workspace/example/dev-shell",
+  "result": "failed",
+  "receipt_ref": null,
+  "error": {
+    "error_code": "E_TASK_FAILED",
+    "message": "backup task exited non-zero",
+    "details": {
+      "exit_code": 2,
+      "stderr_ref": "artifact://logs/example/task-run-0002.stderr"
+    },
+    "retryable": true
+  }
+}
