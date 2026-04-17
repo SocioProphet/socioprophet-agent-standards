@@ -28,6 +28,8 @@ This file catalogs the standards currently landed or proposed under `docs/standa
 
 - `networking/001-mesh-capability-manifest-standard.md`
   - canonical mesh node capability-manifest shape for roles, transports, path templates, and signed constraints
+- `networking/002-mesh-capability-manifest-canonicalization-and-conformance.md`
+  - canonical serialization, hashing, signature-verification, and consumer verdict rules for mesh capability manifests
 
 ## Notes
 
