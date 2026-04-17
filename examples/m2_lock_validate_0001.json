@@ -1,0 +1,10 @@
+{
+  "op": "lock_validate",
+  "lock_ref": "lock://workspace/example/python-311",
+  "workspace_ref": "workspace://example/dev",
+  "result": "valid",
+  "details": {
+    "hash_algorithm": "sha256",
+    "hash_value": "sha256:examplelockhash"
+  }
+}

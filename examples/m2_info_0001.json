@@ -1,0 +1,15 @@
+{
+  "op": "info",
+  "adapter_ref": "adapter://sourceos/example/runner-0001",
+  "protocol_version": "1.0",
+  "capabilities": [
+    "hello",
+    "info",
+    "lock_validate",
+    "lock_hash",
+    "env_realize",
+    "task_run",
+    "deps_inventory"
+  ],
+  "notes": "Example info payload for an M2-capable runner adapter."
+}
