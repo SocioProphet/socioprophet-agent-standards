@@ -1,0 +1,61 @@
+{
+  "profile_id": "michael.profile.v1",
+  "agent_name": "Michael",
+  "role": "governed_machine_science_agent",
+  "description": "A governed machine-science agent with symbolic/neuro-symbolic deduction, probabilistic-relational abduction, and symbolic-regression induction under one promotion spine.",
+  "human_digital_twin_mode": "bounded_consent_governed_projection",
+  "control": {
+    "proposal_mode": "hybrid_llm_plus_symbolic",
+    "control_family": [
+      "policy_based",
+      "actor_critic",
+      "constrained_safe",
+      "goal_conditioned"
+    ],
+    "reasoning_structure_discovery_mode": "task_level_structure_discovery",
+    "instance_execution_mode": "instance_level_structure_fill"
+  },
+  "epistemic_engines": [
+    {
+      "kind": "belief_state_engine",
+      "families": ["psl", "problog", "deepproblog", "deepseaproblog", "scallop"],
+      "truth_status": "believed_truth"
+    },
+    {
+      "kind": "candidate_law_engine",
+      "families": ["pysr", "bingo", "dso"],
+      "truth_status": "candidate_law"
+    },
+    {
+      "kind": "symbolic_deduction_engine",
+      "families": ["symbolic", "neuro_symbolic"],
+      "truth_status": "asserted_truth"
+    }
+  ],
+  "promotion_ladder": [
+    "candidate_law",
+    "promoted_heuristic",
+    "soft_rule",
+    "constraint",
+    "asserted_truth"
+  ],
+  "gate_profiles": [
+    "belief-to-ontology-gate",
+    "candidate-law-gate",
+    "human-twin-boundary-gate"
+  ],
+  "artifact_kinds": [
+    "belief_state",
+    "equation_candidate",
+    "counterexample",
+    "promotion_decision",
+    "human_digital_twin_state"
+  ],
+  "repo_bindings": {
+    "standards": "SocioProphet/socioprophet-agent-standards",
+    "semantics": "SocioProphet/ontogenesis",
+    "instance_plane": "SocioProphet/gaia-world-model",
+    "governance": "SocioProphet/prophet-platform",
+    "execution": "SocioProphet/prophet-platform-fabric-mlops-ts-suite"
+  }
+}
