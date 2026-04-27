@@ -1,0 +1,46 @@
+{
+  "runtime_id": "runtime:stac-ingest:sample:v1",
+  "runtime_class": "ingest",
+  "version": "v1",
+  "inputs": [
+    {
+      "schema_ref": "https://standards.socioprophet.ai/storage/multidomain_geospatial_record.v1.schema.json",
+      "data_class": "EarthObservationProductRecord",
+      "access_tier": "open"
+    }
+  ],
+  "outputs": [
+    {
+      "schema_ref": "https://standards.socioprophet.ai/storage/multidomain_geospatial_record.v1.schema.json",
+      "artifact_type": "EarthObservationProductRecord"
+    },
+    {
+      "schema_ref": "https://standards.socioprophet.ai/knowledge/multidomain_geospatial_knowledge_artifact.v1.schema.json",
+      "artifact_type": "Observation"
+    }
+  ],
+  "policy": {
+    "policy_bundle_ref": "policy:multidomain-geospatial:standard-open-ingest:v1",
+    "approval_required": false,
+    "allowed_data_classes": ["STAC", "COG", "Zarr", "NetCDF", "GeoParquet"],
+    "denied_data_classes": ["classified_external", "unauthorized_sensitive_location"],
+    "sensitive_geo_handling": "mask"
+  },
+  "evidence": {
+    "input_manifest": "evidence:input-manifest:sample-stac-ingest",
+    "output_manifest": "evidence:output-manifest:sample-stac-ingest",
+    "environment_fingerprint": "fingerprint:sample-agent-runtime",
+    "audit_log": "audit:sample-stac-ingest",
+    "redaction_report": "redaction:sample-stac-ingest"
+  },
+  "replay": {
+    "mode": "deterministic_fixture",
+    "procedure_ref": "make multidomain-geospatial-agent-validate"
+  },
+  "lattice_admission": {
+    "entrypoint": "ingest/stac_ingest.py",
+    "validation_command": "python3 tools/validate_multidomain_geospatial_agent.py",
+    "fixture_ref": "fixtures/multidomain/stac-ingest-runtime-profile.sample.v1.json",
+    "admission_state": "candidate"
+  }
+}
