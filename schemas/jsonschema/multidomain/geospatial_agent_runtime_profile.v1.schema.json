@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://standards.socioprophet.ai/agent/multidomain/geospatial_agent_runtime_profile.v1.schema.json",
+  "title": "SocioProphet Multi-Domain Geospatial Agent Runtime Profile v1",
+  "type": "object",
+  "required": ["runtime_id", "runtime_class", "version", "inputs", "outputs", "policy", "evidence", "replay", "lattice_admission"],
+  "properties": {
+    "runtime_id": {"type": "string", "minLength": 3},
+    "runtime_class": {"type": "string", "enum": ["ingest", "transformation", "analytics", "report", "advisory_tasking"]},
+    "version": {"type": "string"},
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["schema_ref", "data_class"],
+        "properties": {
+          "schema_ref": {"type": "string"},
+          "data_class": {"type": "string"},
+          "access_tier": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["schema_ref", "artifact_type"],
+        "properties": {
+          "schema_ref": {"type": "string"},
+          "artifact_type": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "policy": {
+      "type": "object",
+      "required": ["policy_bundle_ref", "approval_required", "denied_data_classes", "sensitive_geo_handling"],
+      "properties": {
+        "policy_bundle_ref": {"type": "string"},
+        "approval_required": {"type": "boolean"},
+        "allowed_data_classes": {"type": "array", "items": {"type": "string"}},
+        "denied_data_classes": {"type": "array", "items": {"type": "string"}},
+        "sensitive_geo_handling": {"type": "string", "enum": ["none", "mask", "delay", "redact", "deny"]}
+      },
+      "additionalProperties": true
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["input_manifest", "output_manifest", "environment_fingerprint", "audit_log"],
+      "properties": {
+        "input_manifest": {"type": "string"},
+        "output_manifest": {"type": "string"},
+        "environment_fingerprint": {"type": "string"},
+        "audit_log": {"type": "string"},
+        "redaction_report": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "replay": {
+      "type": "object",
+      "required": ["mode", "procedure_ref"],
+      "properties": {
+        "mode": {"type": "string", "enum": ["deterministic_fixture", "bounded_replay", "not_replayable"]},
+        "procedure_ref": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "lattice_admission": {
+      "type": "object",
+      "required": ["entrypoint", "validation_command", "fixture_ref", "admission_state"],
+      "properties": {
+        "entrypoint": {"type": "string"},
+        "validation_command": {"type": "string"},
+        "fixture_ref": {"type": "string"},
+        "admission_state": {"type": "string", "enum": ["not_requested", "blocked", "candidate", "admitted"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
