@@ -1,0 +1,31 @@
+{
+  "evidence_version": "v1",
+  "evidence_id": "evidence:runtime:stac-ingest:gaia:eo-product:sample-stac-item-001",
+  "runtime_id": "runtime:stac-ingest:v0",
+  "runtime_class": "ingest",
+  "standards_refs": [
+    "SocioProphet/socioprophet-standards-storage/docs/standards/096-multidomain-geospatial-storage-contracts.md",
+    "SocioProphet/socioprophet-standards-knowledge/docs/standards/080-multidomain-geospatial-knowledge-context.md",
+    "SocioProphet/socioprophet-agent-standards/docs/standards/020-multidomain-geospatial-agent-runtime.md"
+  ],
+  "input_manifest": {
+    "input_ref": "stac:item:sample-stac-item-001",
+    "input_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "input_schema_hint": "stac-like-item-fixture.v1"
+  },
+  "output_manifest": {
+    "output_ref": "gaia:eo-product:sample-stac-item-001",
+    "output_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "output_schema_ref": "schemas/multidomain/earth_observation_product_record.v1.schema.json"
+  },
+  "policy": {
+    "approval_required": false,
+    "sensitive_geo_handling": "preserve_policy_ref",
+    "network_posture": "none_for_fixture_proof",
+    "secret_posture": "none_for_fixture_proof"
+  },
+  "replay": {
+    "mode": "deterministic_fixture",
+    "command": "python3 multidomain/stac_ingest.py fixtures/multidomain/stac-item-input.sample.v1.json /tmp/gaia-stac-ingest-output.json"
+  }
+}
