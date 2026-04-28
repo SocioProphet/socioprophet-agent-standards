@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://standards.socioprophet.ai/agent/multidomain/geospatial_runtime_evidence_bundle.v1.schema.json",
+  "title": "SocioProphet Multi-Domain Geospatial Runtime Evidence Bundle v1",
+  "type": "object",
+  "required": ["evidence_version", "evidence_id", "runtime_id", "runtime_class", "standards_refs", "input_manifest", "output_manifest", "policy", "replay"],
+  "properties": {
+    "evidence_version": {"type": "string", "const": "v1"},
+    "evidence_id": {"type": "string"},
+    "runtime_id": {"type": "string"},
+    "runtime_class": {"type": "string", "enum": ["ingest", "transformation", "analytics", "report", "advisory_tasking"]},
+    "standards_refs": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "input_manifest": {
+      "type": "object",
+      "required": ["input_ref", "input_sha256", "input_schema_hint"],
+      "properties": {
+        "input_ref": {"type": "string"},
+        "input_sha256": {"type": "string", "pattern": "^sha256:[0-9a-fA-F]{64}$"},
+        "input_schema_hint": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "output_manifest": {
+      "type": "object",
+      "required": ["output_ref", "output_sha256", "output_schema_ref"],
+      "properties": {
+        "output_ref": {"type": "string"},
+        "output_sha256": {"type": "string", "pattern": "^sha256:[0-9a-fA-F]{64}$"},
+        "output_schema_ref": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "policy": {
+      "type": "object",
+      "required": ["approval_required", "sensitive_geo_handling", "network_posture", "secret_posture"],
+      "properties": {
+        "approval_required": {"type": "boolean"},
+        "sensitive_geo_handling": {"type": "string"},
+        "network_posture": {"type": "string"},
+        "secret_posture": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "replay": {
+      "type": "object",
+      "required": ["mode", "command"],
+      "properties": {
+        "mode": {"type": "string", "enum": ["deterministic_fixture", "bounded_replay", "not_replayable"]},
+        "command": {"type": "string"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
