@@ -1,6 +1,6 @@
 # 020 — Multi-Domain Geospatial Agent Runtime Standard
 
-Status: Draft v0.1
+Status: Draft v0.2
 Authority: `SocioProphet/socioprophet-agent-standards`
 Related: `SocioProphet/prophet-platform-standards/docs/standards/070-multidomain-geospatial-standards-alignment.md`
 
@@ -17,6 +17,15 @@ The following runtime classes are in scope:
 - analytics runtimes: anomaly scoring, route risk, coverage/revisit windows, vessel/air/asset track quality, soil/environment prediction
 - report runtimes: decision cards, evidence bundles, map layer manifests, runtime boundary reports
 - advisory tasking runtimes: authorized task proposals, never ungoverned action
+
+## Normative schemas
+
+The following JSON Schemas are normative for this standard:
+
+- `schemas/jsonschema/multidomain/geospatial_agent_runtime_profile.v1.schema.json`
+- `schemas/jsonschema/multidomain/geospatial_runtime_evidence_bundle.v1.schema.json`
+
+The profile schema defines runtime admission metadata. The evidence bundle schema defines per-run evidence emitted by executable runtimes.
 
 ## Agent execution requirements
 
@@ -35,6 +44,24 @@ Every multi-domain geospatial agent runtime MUST define:
 - approval requirements
 - failure and rollback semantics
 
+## Runtime evidence bundle requirements
+
+Every executable multi-domain geospatial runtime SHOULD emit a `geospatial_runtime_evidence_bundle.v1` object.
+
+The evidence bundle MUST include:
+
+- `evidence_version`
+- `evidence_id`
+- `runtime_id`
+- `runtime_class`
+- standards references
+- input manifest with SHA-256 hash
+- output manifest with SHA-256 hash
+- policy posture, including approval, sensitive-geospatial handling, network posture, and secret posture
+- replay metadata
+
+A runtime that cannot emit a replayable evidence bundle MUST mark replay mode as `not_replayable` and explain that limitation in its runtime-boundary document.
+
 ## Approval gates
 
 Agents MUST NOT execute privileged geospatial operations without policy approval. The following require explicit approval gates:
@@ -50,20 +77,6 @@ Agents MUST NOT execute privileged geospatial operations without policy approval
 
 This standard allows authorized analysis, public-safety, humanitarian, logistics, infrastructure, environmental, compliance, and customer-owned operational workflows. It does not define or authorize ungoverned targeting, evasion, sensitive-site exploitation, or unauthorized tracking workflows.
 
-## Runtime evidence bundle
-
-Each run SHOULD emit:
-
-- input manifest
-- output manifest
-- source provenance refs
-- runtime boundary ID
-- policy bundle hash
-- environment fingerprint
-- decision/audit log
-- replay metadata
-- redaction/masking report when applicable
-
 ## Lattice Forge admission rule
 
 A geospatial runtime may be admitted to Lattice Forge only after it has:
@@ -75,4 +88,14 @@ A geospatial runtime may be admitted to Lattice Forge only after it has:
 5. policy bundle reference,
 6. evidence bundle definition,
 7. replay semantics,
-8. and a standards cross-reference to this file plus storage/knowledge/platform standards.
+8. standards cross-reference to this file plus storage/knowledge/platform standards,
+9. runtime candidate validation,
+10. packaging, SBOM, signing, and rollback tests.
+
+## Validation
+
+This repository validates runtime profile and evidence bundle fixtures through:
+
+```bash
+make multidomain-geospatial-agent-validate
+```
