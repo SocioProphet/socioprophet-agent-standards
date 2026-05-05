@@ -1,0 +1,22 @@
+{
+  "apiVersion": "agent-standards.socioprophet.org/v0.1",
+  "kind": "AgentActionTraceProfile",
+  "metadata": {
+    "name": "invalid-no-policy-ref",
+    "profileVersion": "0.1.0"
+  },
+  "spec": {
+    "ontologyRef": "github://SocioProphet/ontogenesis/Middle/action-ontology.ttl",
+    "standardsRef": "github://SocioProphet/socioprophet-standards-storage/docs/standards/138-action-ontology-bootstrap-temp-landing.md",
+    "agent": {
+      "subjectRef": "agent://example/bad-agent",
+      "runtimeRole": "governed-runtime-agent"
+    },
+    "capabilities": ["writeTrace"],
+    "tracePatterns": ["ContractNet", "PubSub"],
+    "evidence": {
+      "requiresPolicyRef": false,
+      "requiresReceiptRef": true
+    }
+  }
+}
