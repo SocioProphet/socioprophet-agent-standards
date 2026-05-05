@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.socioprophet.ai/agent-plane/0.1.0/agent-action-trace-profile.schema.json",
+  "title": "AgentActionTraceProfile",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"const": "agent-standards.socioprophet.org/v0.1"},
+    "kind": {"const": "AgentActionTraceProfile"},
+    "metadata": {
+      "type": "object",
+      "required": ["name", "profileVersion"],
+      "properties": {
+        "name": {"type": "string"},
+        "profileVersion": {"type": "string"},
+        "description": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": ["ontologyRef", "standardsRef", "agent", "capabilities", "tracePatterns", "evidence"],
+      "properties": {
+        "ontologyRef": {"type": "string"},
+        "standardsRef": {"type": "string"},
+        "agent": {
+          "type": "object",
+          "required": ["subjectRef", "runtimeRole"],
+          "properties": {
+            "subjectRef": {"type": "string"},
+            "runtimeRole": {"type": "string"}
+          },
+          "additionalProperties": false
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "tracePatterns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "evidence": {
+          "type": "object",
+          "required": ["requiresPolicyRef", "requiresReceiptRef"],
+          "properties": {
+            "requiresPolicyRef": {"type": "boolean"},
+            "requiresReceiptRef": {"type": "boolean"},
+            "receiptKinds": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

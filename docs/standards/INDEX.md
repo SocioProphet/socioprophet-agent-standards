@@ -4,9 +4,15 @@ This file catalogs the standards currently landed or proposed under `docs/standa
 
 ## Domains
 
+- `agent-plane/` — runtime-facing agent action, trace, lifecycle, evidence, and conformance profiles
 - `authentication/` — identity proof, sessioning, federation, recovery, and machine identity
 - `conformance/` — profile-layer conformance criteria and release posture
 - `networking/` — mesh identity advertisement, path-template vocabulary, and network-facing capability contracts
+
+## Agent-plane standards
+
+- `agent-plane/001-agent-action-trace-conformance-profile.md`
+  - runtime-facing Action Ontology consumption profile for agent capability declarations, action records, trace records, receipts, policy refs, and conformance evidence
 
 ## Authentication standards
 
