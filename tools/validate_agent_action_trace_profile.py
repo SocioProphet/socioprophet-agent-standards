@@ -121,17 +121,34 @@ def validate_profile(path: Path) -> None:
         fail(f"{path}: spec.evidence.requiresReceiptRef must be true")
 
 
+def expect_profile_failure(path: Path) -> None:
+    try:
+        validate_profile(path)
+    except SystemExit as exc:
+        if exc.code == 2:
+            print(f"OK: {path.name} failed as expected")
+            return
+        raise
+    fail(f"{path}: invalid profile unexpectedly passed")
+
+
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     schema = root / "schemas" / "agent-plane" / "agent-action-trace-profile.schema.json"
     example = root / "examples" / "agent-action-trace-profile.example.json"
-    if not schema.exists():
-        fail(f"missing schema: {schema.relative_to(root)}")
-    if not example.exists():
-        fail(f"missing example: {example.relative_to(root)}")
+    invalid_wrong_ontology = root / "examples" / "agent-action-trace-profile.invalid-wrong-ontology-ref.json"
+    invalid_no_policy = root / "examples" / "agent-action-trace-profile.invalid-no-policy-ref.json"
+
+    for required_path in (schema, example, invalid_wrong_ontology, invalid_no_policy):
+        if not required_path.exists():
+            fail(f"missing file: {required_path.relative_to(root)}")
+
     validate_schema(schema)
     validate_profile(example)
-    print("OK: validated AgentActionTraceProfile schema and example")
+    expect_profile_failure(invalid_wrong_ontology)
+    expect_profile_failure(invalid_no_policy)
+
+    print("OK: validated AgentActionTraceProfile schema, example, and negative fixtures")
     return 0
 
 
