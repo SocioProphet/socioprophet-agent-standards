@@ -1,0 +1,77 @@
+{
+  "apiVersion": "agent-standards.socioprophet.org/workspace-context-fabric/v0.1",
+  "kind": "WorkspaceContextFabricProfile",
+  "metadata": {
+    "name": "workspace-context-fabric-v0-1",
+    "profileVersion": "0.1.0"
+  },
+  "requiredSurfaces": [
+    {
+      "surface": "Workroom",
+      "ownerRepo": "SocioProphet/prophet-workspace",
+      "contractRef": "contracts/workspace/workroom.schema.json",
+      "validationRef": "tools/validate_professional_workrooms.py"
+    },
+    {
+      "surface": "ProfessionalWorkroom",
+      "ownerRepo": "SocioProphet/prophet-workspace",
+      "contractRef": "contracts/workspace/professional-workroom.schema.json",
+      "validationRef": "tools/validate_professional_workrooms.py"
+    },
+    {
+      "surface": "ContextFabricContracts",
+      "ownerRepo": "SocioProphet/prophet-workspace",
+      "contractRef": "contracts/workspace/context-fabric/",
+      "validationRef": "tools/validate_context_fabric.py"
+    },
+    {
+      "surface": "WorkspaceContextRecord",
+      "ownerRepo": "SocioProphet/prophet-platform",
+      "contractRef": "contracts/workspace-context/workspace-context-record.v0.1.json",
+      "validationRef": "tools/validate_workspace_context_record.py"
+    },
+    {
+      "surface": "WorkroomContextEvidence",
+      "ownerRepo": "SocioProphet/agentplane",
+      "contractRef": "schemas/workroom-context-evidence.schema.v0.1.json",
+      "validationRef": "tools/validate_workroom_context_evidence.py"
+    },
+    {
+      "surface": "WorkspaceRecallPromotionPacket",
+      "ownerRepo": "SocioProphet/memory-mesh",
+      "contractRef": "schemas/workspace-recall-promotion-packet.schema.json",
+      "validationRef": "scripts/validate_workspace_recall_promotion_packet.py"
+    },
+    {
+      "surface": "WorkspaceContextRegistryBinding",
+      "ownerRepo": "SocioProphet/agent-registry",
+      "contractRef": "contracts/workspace-context/workspace-context-authority-binding.v0.1.schema.json",
+      "validationRef": "tools/validate_workspace_context_authority_binding.py"
+    },
+    {
+      "surface": "EstateRegistration",
+      "ownerRepo": "SocioProphet/sociosphere",
+      "contractRef": "manifest/context-fabric.registration.toml",
+      "validationRef": "docs/context-fabric-estate-registration.md"
+    }
+  ],
+  "owningRepositories": [
+    "SocioProphet/prophet-workspace",
+    "SocioProphet/prophet-platform",
+    "SocioProphet/agentplane",
+    "SocioProphet/memory-mesh",
+    "SocioProphet/agent-registry",
+    "SocioProphet/sociosphere"
+  ],
+  "validationRefs": [
+    "SocioProphet/prophet-workspace#17",
+    "SocioProphet/prophet-platform#475",
+    "SocioProphet/agentplane#197",
+    "SocioProphet/memory-mesh#30",
+    "SocioProphet/agent-registry#37",
+    "SocioProphet/sociosphere#351"
+  ],
+  "nonOwnershipClaims": [
+    "Profile-only standards record."
+  ]
+}
