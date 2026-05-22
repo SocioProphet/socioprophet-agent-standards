@@ -8,11 +8,17 @@ This file catalogs the standards currently landed or proposed under `docs/standa
 - `authentication/` — identity proof, sessioning, federation, recovery, and machine identity
 - `conformance/` — profile-layer conformance criteria and release posture
 - `networking/` — mesh identity advertisement, path-template vocabulary, and network-facing capability contracts
+- `workspace-context-fabric/` — compatibility profile for Workroom, Context Fabric, platform records, execution evidence, recall promotion, authority binding, and estate registration
 
 ## Agent-plane standards
 
 - `agent-plane/001-agent-action-trace-conformance-profile.md`
   - runtime-facing Action Ontology consumption profile for agent capability declarations, action records, trace records, receipts, policy refs, and conformance evidence
+
+## Workspace Context Fabric standards
+
+- `workspace-context-fabric/001-workspace-context-fabric-profile.md`
+  - v0.1 profile binding workspace, platform, execution, recall, authority, and estate-registration surfaces without moving ownership out of the component repositories
 
 ## Authentication standards
 
