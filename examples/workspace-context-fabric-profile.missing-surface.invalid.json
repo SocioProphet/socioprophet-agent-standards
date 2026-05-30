@@ -1,0 +1,25 @@
+{
+  "apiVersion": "agent-standards.socioprophet.org/workspace-context-fabric/v0.1",
+  "kind": "WorkspaceContextFabricProfile",
+  "metadata": {
+    "name": "workspace-context-fabric-missing-surface",
+    "profileVersion": "0.1.0"
+  },
+  "requiredSurfaces": [
+    {
+      "surface": "Workroom",
+      "ownerRepo": "SocioProphet/prophet-workspace",
+      "contractRef": "contracts/workspace/workroom.schema.json",
+      "validationRef": "tools/validate_professional_workrooms.py"
+    }
+  ],
+  "owningRepositories": [
+    "SocioProphet/prophet-workspace"
+  ],
+  "validationRefs": [
+    "SocioProphet/prophet-workspace#17"
+  ],
+  "nonOwnershipClaims": [
+    "Profile-only standards record."
+  ]
+}

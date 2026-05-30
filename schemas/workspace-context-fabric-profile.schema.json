@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.socioprophet.ai/agent-standards/workspace-context-fabric-profile.schema.json",
+  "title": "WorkspaceContextFabricProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "requiredSurfaces", "owningRepositories", "validationRefs"],
+  "properties": {
+    "apiVersion": { "const": "agent-standards.socioprophet.org/workspace-context-fabric/v0.1" },
+    "kind": { "const": "WorkspaceContextFabricProfile" },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "profileVersion"],
+      "properties": {
+        "name": { "type": "string" },
+        "profileVersion": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "requiredSurfaces": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surface", "ownerRepo", "contractRef"],
+        "properties": {
+          "surface": { "type": "string" },
+          "ownerRepo": { "type": "string" },
+          "contractRef": { "type": "string" },
+          "validationRef": { "type": "string" }
+        }
+      }
+    },
+    "owningRepositories": { "type": "array", "items": { "type": "string" } },
+    "validationRefs": { "type": "array", "items": { "type": "string" } },
+    "nonOwnershipClaims": { "type": "array", "items": { "type": "string" } }
+  }
+}
