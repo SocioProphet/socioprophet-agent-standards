@@ -9,6 +9,7 @@ This file catalogs the standards currently landed or proposed under `docs/standa
 - `conformance/` — profile-layer conformance criteria and release posture
 - `networking/` — mesh identity advertisement, path-template vocabulary, and network-facing capability contracts
 - `workspace-context-fabric/` — compatibility profile for Workroom, Context Fabric, platform records, execution evidence, recall promotion, authority binding, and estate registration
+- `consent-plane/` — purpose-bound tool use: agent roles × surfaces × isolation spaces × tools × purposes + consent, mapped to GDPR (purpose limitation, consent-per-purpose, accountability)
 
 ## Estate-wide standards (top-level numbered)
 
