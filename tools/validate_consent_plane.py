@@ -27,7 +27,10 @@ def load(name: str, kind: str, errors: list[str]) -> dict:
     if not p.exists():
         errors.append(f"missing catalog {name}")
         return {}
-    d = yaml.safe_load(p.read_text()) or {}
+    d = yaml.safe_load(p.read_text())
+    if not isinstance(d, dict):
+        errors.append(f"{name}: top-level must be a mapping, got {type(d).__name__}")
+        return {}
     if d.get("kind") != kind:
         errors.append(f"{name}: kind must be {kind}, got {d.get('kind')!r}")
     if not isinstance(d.get("spec"), dict):
@@ -58,20 +61,27 @@ def main() -> int:
     space_ids: set[str] = set()
     taint_kv: set[str] = set()
     for s in spaces["spec"].get("spaces", []):
-        space_ids.add(s.get("id"))
+        sid = s.get("id")
+        if not sid:
+            errors.append("space entry missing 'id'")
+            continue
+        space_ids.add(sid)
         for t in s.get("taints", []):
             if t.get("effect") not in VALID_EFFECTS:
-                errors.append(f"space {s.get('id')!r}: bad taint effect {t.get('effect')!r}")
+                errors.append(f"space {sid!r}: bad taint effect {t.get('effect')!r}")
+            if t.get("key") is None or t.get("value") is None:
+                errors.append(f"space {sid!r}: taint missing key/value")
+                continue
             taint_kv.add(f"{t.get('key')}={t.get('value')}")
 
-    # roles reference defined purposes; tolerations reference real taints (ring=*)
+    # roles reference defined purposes; EVERY toleration must match a real
+    # space taint (catches typos like `tenant=` or `foo=bar`, not just ring=*).
     for r in roles["spec"].get("roles", []):
         for pur in r.get("admissible", []):
             if pur not in purposes:
                 errors.append(f"role {r.get('id')!r}: undefined purpose {pur!r}")
         for tol in r.get("tolerations", []):
-            # ring=* tolerations must match a real space ring taint
-            if tol.startswith("ring=") and tol not in taint_kv:
+            if tol not in taint_kv:
                 errors.append(f"role {r.get('id')!r}: toleration {tol!r} matches no space taint")
 
     # surfaces reference defined purposes + defined spaces
