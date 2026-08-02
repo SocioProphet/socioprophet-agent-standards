@@ -10,6 +10,15 @@ This file catalogs the standards currently landed or proposed under `docs/standa
 - `networking/` — mesh identity advertisement, path-template vocabulary, and network-facing capability contracts
 - `workspace-context-fabric/` — compatibility profile for Workroom, Context Fabric, platform records, execution evidence, recall promotion, authority binding, and estate registration
 
+## Estate-wide standards (top-level numbered)
+
+- `020-multidomain-geospatial-agent-runtime.md`
+  - multidomain geospatial agent runtime profile
+- `030-agent-catalog-connectivity.md`
+  - agents in `ds.agents-manifests` MUST be a connected graph (skills/tools/prompts/preferences/personas + agent-plane/registry/standards binding)
+- `031-mcp-house-protocol.md`
+  - every MCP surface MUST ride the TriTRPC transport profile (canonical JSON + `sha256` digest binding + typed media type + typed envelope + method naming); fail-closed INV-MCP-1..3; teeth-both-ways conformance verifier required per MCP surface
+
 ## Agent-plane standards
 
 - `agent-plane/001-agent-action-trace-conformance-profile.md`
